@@ -17,6 +17,7 @@ import { WorkbenchApp } from './workbench.tsx';
 import { ensureStyles } from './styles.ts';
 import { loadPanelWidth, savePanelWidth } from './config.ts';
 import { getInboxStore } from './inbox-store.ts';
+import { t } from './locales.ts';
 
 export const TAB_ID = 'github-workbench:repo';
 
@@ -71,7 +72,7 @@ export function mountWorkbench(ctx: ClientCtx): () => void {
           title: () => inboxTitle(),
           guide: [{
             order: 55,
-            title: () => 'GitHub 工作台',
+            title: () => t('workbench.title'),
             icon: (props: { size?: number }) => iconFor('octo')(props.size ?? 16),
           }],
         });
@@ -198,7 +199,7 @@ export function mountWorkbench(ctx: ClientCtx): () => void {
 
 function inboxTitle(): string {
   const n = getInboxStore().unreadCount();
-  return n > 0 ? `GitHub 工作台 (${n})` : 'GitHub 工作台';
+  return n > 0 ? t('workbench.titleWithCount', { count: n }) : t('workbench.title');
 }
 
 /** 原生座位的内容体:框架注入 sessionId(会话作用域);恒可见。 */
@@ -219,15 +220,15 @@ function NativeTitle(): React.ReactNode {
 function bindInboxBadge(registry: SidebarRegistry): () => void {
   const paint = (): void => {
     const n = getInboxStore().unreadCount();
-    const title = n > 0 ? `GitHub 工作台 (${n})` : 'GitHub 工作台';
+    const title = n > 0 ? t('workbench.titleWithCount', { count: n }) : t('workbench.title');
     const tabs = registry.getSnapshot?.().state?.tabs ?? [];
-    const ours = tabs.filter((t) => t.type === TAB_ID);
+    const ours = tabs.filter((tab) => tab.type === TAB_ID);
     if (ours.length === 0) {
       try { registry.updateTab?.(TAB_ID, { title }); } catch { /* 无已开 tab */ }
       return;
     }
-    for (const t of ours) {
-      try { registry.updateTab?.(t.id, { title }); } catch { /* 忽略单条失败 */ }
+    for (const tab of ours) {
+      try { registry.updateTab?.(tab.id, { title }); } catch { /* 忽略单条失败 */ }
     }
   };
   return getInboxStore().subscribe(paint);
@@ -252,19 +253,18 @@ function mountAsTab(ctx: ClientCtx, registry: SidebarRegistry): () => void {
       tab: {
         id: `${TAB_ID}:link:${state.nextBrowser}`,
         type: TAB_ID,
-        title: 'GitHub 工作台',
+        title: t('workbench.title'),
       },
       patch: { nextBrowser: (state.nextBrowser ?? 0) + 1 },
     }),
-    // 原生齿轮设置:token 兜底来源与自动刷新周期(值经 absorbHostToken 合并进组件)
     settings: {
       toggles: [
-        { key: 'browserInterceptLinks', title: '接管聊天中的 GitHub 链接到工作台' },
-        { key: 'browserInterceptHttps', title: '接管 https:// 链接' },
+        { key: 'browserInterceptLinks', title: t('mount.settingsToken') },
+        { key: 'browserInterceptHttps', title: t('mount.settingsHttps') },
       ],
       pluginToggles: [
-        { key: 'token', title: 'GitHub Token(PAT)', type: 'text' },
-        { key: 'autoRefreshSec', title: '自动刷新周期(秒)', type: 'number', min: 0, max: 120 },
+        { key: 'token', title: 'GitHub Token (PAT)', type: 'text' },
+        { key: 'autoRefreshSec', title: t('mount.settingsAutoRefresh'), type: 'number', min: 0, max: 120 },
       ],
     },
     component: (props) => createElement(WorkbenchApp, {
@@ -322,7 +322,7 @@ function mountStandalone(): () => void {
 
   // 收起/展开开关(贴分隔线左缘)
   const toggle = document.createElement('button');
-  toggle.title = '收起 GitHub 工作台';
+  toggle.title = t('workbench.title');
   toggle.textContent = '‹';
   toggle.style.cssText = [
     'position:absolute', 'left:-13px', 'top:50%', 'transform:translateY(-50%)', 'z-index:5',
@@ -334,8 +334,8 @@ function mountStandalone(): () => void {
 
   // 右缘竖条(收起态显示)
   const edge = document.createElement('button');
-  edge.textContent = '🐙 工作台';
-  edge.title = '展开 GitHub 工作台';
+  edge.textContent = '🐙 ' + t('workbench.title');
+  edge.title = t('workbench.title');
   edge.style.cssText = [
     'position:fixed', 'right:0', 'top:50%', 'transform:translateY(-50%)', 'z-index:41',
     'writing-mode:vertical-rl', 'padding:16px 7px', 'letter-spacing:.18em', 'font-size:12px',
