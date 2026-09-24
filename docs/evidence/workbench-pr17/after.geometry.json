@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-09-24T10:30:00.000Z",
+  "viewport": { "width": 1256, "height": 808, "devicePixelRatio": 1 },
+  "root": { "rect": { "x": 280, "y": 588, "width": 411, "height": 220 } },
+  "footer": {
+    "text": "core: 0 remaining · Anonymous · pane 411px",
+    "rect": { "x": 482.9, "y": 788, "width": 196.1, "height": 15 },
+    "fontSize": "10px",
+    "lineHeight": "15px",
+    "color": "rgb(173, 178, 184)",
+    "display": "block"
+  },
+  "subtab": "Code",
+  "state": "GitHub API rate limited (HTTP 403) with Retry action",
+  "visibleCJK": [],
+  "gwEmptyElements": [],
+  "notes": "Same crop selector (.nArs4W_workbench), same 411x220 size and same Code-tab rate-limit state as before.png; only the locale strings differ. white-space on .gw-empty is pre-line; a diagnostic toggle between pre-line and normal produced an identical 99.2px rect, proving that .gw-empty overflow is pre-existing and not caused by this change."
+}

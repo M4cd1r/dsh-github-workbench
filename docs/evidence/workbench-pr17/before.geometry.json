@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-09-24T09:12:46.340Z",
+  "viewport": { "width": 1256, "height": 808, "devicePixelRatio": 1 },
+  "root": { "rect": { "x": 280, "y": 588, "width": 411, "height": 220 } },
+  "repoButton": { "x": 319, "y": 632.25, "width": 213.421875, "height": 25.5 },
+  "visibleCJK": [
+    {
+      "tag": "SPAN",
+      "className": "",
+      "text": "core 剩余 0 · 匿名只读 · 容器 411px",
+      "rect": { "x": 524.25, "y": 788, "width": 154.75, "height": 15 },
+      "fontSize": "10px",
+      "lineHeight": "15px",
+      "color": "rgb(173, 178, 184)",
+      "display": "block"
+    }
+  ]
+}

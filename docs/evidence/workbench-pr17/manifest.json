@@ -1,0 +1,39 @@
+{
+  "topic": "dsh-github-workbench PR #17 English localization",
+  "pr": "https://github.com/meyaomiao/dsh-github-workbench/pull/17",
+  "instance": "live DSH Web GUI at http://127.0.0.1:3080 (real session, real GitHub data)",
+  "cropSelector": ".nArs4W_workbench",
+  "viewport": { "width": 1256, "height": 808, "devicePixelRatio": 1 },
+  "before": {
+    "file": "before.png",
+    "sha256": "083d0d618ebca4dea8eff4f1ac54c96ca75f46153b5cb5150f553fbc5f2bb790",
+    "width": 411,
+    "height": 220,
+    "subtab": "Code",
+    "state": "GitHub API rate limited (HTTP 403) with Retry action",
+    "footerText": "api.github.com · REST v3   core 剩余 0 · 匿名只读 · 容器 411px",
+    "visibleCJK": ["core 剩余 0 · 匿名只读 · 容器 411px"],
+    "geometryFile": "before.geometry.json"
+  },
+  "after": {
+    "file": "after.png",
+    "sha256": "585119ed9a677fd4fe1ab0c602726b37fa6f2c3195a8adfca2150792e5a42598",
+    "width": 411,
+    "height": 220,
+    "subtab": "Code",
+    "state": "GitHub API rate limited (HTTP 403) with Retry action",
+    "footerText": "api.github.com · REST v3   core: 0 remaining · Anonymous · pane 411px",
+    "visibleCJK": [],
+    "geometryFile": "after.geometry.json",
+    "bundleDeployedFromCommit": "318ccc01c176202cd2f3f7c598f453357e4361c8"
+  },
+  "pair": {
+    "file": "pair.png",
+    "sha256": "7be3d56184c05de757514f8350a0ce20fd4b9d73deea1a19f6be4c05b06b5a8b",
+    "width": 846,
+    "height": 256,
+    "labels": ["Before", "After"]
+  },
+  "preDeployBackup": "pre-deploy-backup/",
+  "measured": "Both captures used the identical selector, identical 411x220 element size, identical 1256x808 viewport, the same Code subtab and the same rate-limit error state. The only difference is the localized footer/status strings. A diagnostic toggling .gw-empty white-space between pre-line and normal produced an identical 99.2px rect, so the panel's empty-state overflow is pre-existing and unrelated to this change."
+}
