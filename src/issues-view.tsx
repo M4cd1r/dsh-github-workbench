@@ -1,6 +1,6 @@
 /**
- * Issues 页签:列表(工具条 + 新建)+ 详情抽屉(正文 / 评论 / 编辑 / 关闭重开)。
- * 写操作:新建、评论、编辑标题正文、编辑/删除评论、关闭/重开(关闭需确认)。
+ * Issues tab: list and create flow plus a detail drawer for the body, comments,
+ * editing, and close/reopen actions. Closing an Issue requires confirmation.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -18,7 +18,7 @@ export interface ListViewProps {
   ghRef: GhRef;
   visible: boolean;
   onCount: (n: number) => void;
-  /** 外链深链:初始打开的 issue/PR 编号(消费一次)。 */
+  /** External-link deep link: initially open Issue or PR number, consumed once. */
   initialDetail?: number | null;
   onConsumeDeep?: () => void;
 }
@@ -37,7 +37,7 @@ export function IssuesView({ ghRef, onCount, initialDetail, onConsumeDeep }: Lis
   const [loadingMore, setLoadingMore] = useState(false);
   const reqId = useRef(0);
 
-  // 列表加载:仓库/筛选/排序变化 → 清空进加载态;加载更多 → 追加;写操作后 → 静默换新(不闪)
+  // List loading: repository, filter, and sort changes reset the list; load-more appends; writes refresh silently.
   const load = useCallback((silent: boolean, pageUrl?: string) => {
     const id = pageUrl ? reqId.current : ++reqId.current;
     if (pageUrl) setLoadingMore(true);
@@ -324,5 +324,5 @@ export function StateIcon(props: { closed: boolean; merged?: boolean }): ReactNo
   </span>;
 }
 
-// 复用类型引用(避免未使用告警的显式引用)
+// Re-export the icon type to keep the public type surface explicit.
 export type { IconName };

@@ -1,6 +1,7 @@
 /**
- * Code 页签:左列远端目录树(git trees API 单次 recursive 拉取),
- * 右侧文件预览(contents API,<900KB 文本行号渲染;二进制/超大降级为外链卡片)。
+ * Code tab: remote directory tree on the left and file preview on the right.
+ * The contents API renders text under 900 KB with line numbers; binary and
+ * oversized files fall back to an external link.
  */
 
 import { useEffect, useState } from 'react';
@@ -23,7 +24,7 @@ export function CodeView({ ghRef, branch }: CodeViewProps): ReactNode {
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<string | null>(null);
-  const [treeOpen, setTreeOpen] = useState(false); // 窄屏抽屉开关(宽屏由 CSS 忽略)
+  const [treeOpen, setTreeOpen] = useState(false); // Narrow-screen drawer toggle; CSS ignores it on wide screens.
 
   useEffect(() => {
     let dead = false;
@@ -33,7 +34,7 @@ export function CodeView({ ghRef, branch }: CodeViewProps): ReactNode {
         if (dead) return;
         setItems(r.items);
         setTruncated(r.truncated);
-        // 默认展开第一层目录
+        // Expand top-level directories by default.
         const first = new Set<string>();
         for (const it of r.items) {
           const top = it.path.split('/')[0];

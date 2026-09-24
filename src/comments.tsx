@@ -1,6 +1,7 @@
 /**
- * 评论区共享块:评论列表 + 发表框(Issue 与 PR 详情抽屉复用)。
- * 删除仅对「当前鉴权用户本人的评论」显示且需确认;支持行内编辑。
+ * Shared comments block used by Issue and Pull request detail drawers.
+ * Delete controls are shown only for the authenticated user's own comments
+ * and require confirmation; inline editing is supported.
  */
 
 import { useEffect, useState } from 'react';

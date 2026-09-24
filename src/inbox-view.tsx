@@ -1,6 +1,4 @@
-/**
- * 收件箱覆盖层:Issues / Pull requests / Actions 三分栏。点行交给工作台切仓。
- */
+/** Inbox overlay with Issues, Pull requests, and Actions tabs. */
 
 import { useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
@@ -8,16 +6,16 @@ import { GwIcon, type IconName } from './icons.ts';
 import { timeAgo, type InboxKind } from './lib.ts';
 import { Empty } from './ui.tsx';
 import type { InboxItem, InboxSnapshot, InboxStore } from './inbox-store.ts';
-import { t } from './locales.ts';
+import { t, type WorkbenchKey } from './locales.ts';
 
 export function useInboxSnapshot(store: InboxStore): InboxSnapshot {
   return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
 }
 
-const TABS: readonly { id: InboxKind; icon: IconName; label: string }[] = [
-  { id: 'issue', icon: 'issue', label: 'Issues' },
-  { id: 'pr', icon: 'pr', label: 'Pull requests' },
-  { id: 'actions', icon: 'play', label: 'Actions' },
+const TABS: readonly { id: InboxKind; icon: IconName; labelKey: WorkbenchKey }[] = [
+  { id: 'issue', icon: 'issue', labelKey: 'tab.issues' },
+  { id: 'pr', icon: 'pr', labelKey: 'tab.prs' },
+  { id: 'actions', icon: 'play', labelKey: 'tab.actions' },
 ];
 
 export interface InboxOverlayProps {
@@ -49,7 +47,7 @@ export function InboxOverlay(props: InboxOverlayProps): ReactNode {
         {TABS.map((tabItem) => (
           <button key={tabItem.id} type="button" className={`gw-tab ${tab === tabItem.id ? 'on' : ''}`}
             onClick={() => setTab(tabItem.id)}>
-            <GwIcon name={tabItem.icon} size={13} />{tabItem.label}
+            <GwIcon name={tabItem.icon} size={13} />{t(tabItem.labelKey)}
             {snap.unreadByKind[tabItem.id] > 0 && <span className="gw-count">{snap.unreadByKind[tabItem.id]}</span>}
           </button>
         ))}
@@ -79,7 +77,7 @@ export function InboxOverlay(props: InboxOverlayProps): ReactNode {
             <span className="gw-rowmain">
               <span className="gw-rowtitle">{it.title}</span>
               <span className="gw-rowsub">
-                {it.owner}/{it.repo} {it.kind === 'actions' ? `run #${it.number}` : `#${it.number}`}
+                {it.owner}/{it.repo} {it.kind === 'actions' ? t('inbox.runNumber', { number: it.number }) : `#${it.number}`}
                 {' · '}{it.user} · {timeAgo(it.createdAt)}
               </span>
             </span>

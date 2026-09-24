@@ -1,6 +1,7 @@
 /**
- * Actions 页签:workflow runs 列表(状态图标 / 行悬停 重跑·取消 / 点击跳原页)。
- * 自动刷新周期来自设置,受 visible 门控;取消需确认。
+ * Actions tab: workflow run list with status icons, row actions, and links to
+ * the original run page. Auto-refresh follows the configured visible state;
+ * cancellation requires confirmation.
  */
 
 import { useCallback, useEffect, useState } from 'react';
